@@ -4,761 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valles Marineris Ventures</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Inter:wght@300;400;600;800&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --mars-primary: #cd5c5c;
-            --mars-secondary: #a0522d;
-            --neon-cyan: #00f5ff;
-            --neon-orange: #ff4500;
-            --deep-space: #0b0c10;
-            --darker-space: #050507;
-            --surface-1: rgba(255, 255, 255, 0.03);
-            --surface-2: rgba(255, 255, 255, 0.06);
-            --surface-3: rgba(255, 255, 255, 0.09);
-            --glitch-pink: #ff0080;
-            --tech-green: #00ff41;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--deep-space);
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* Custom cursor */
-        .cursor {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background: var(--neon-cyan);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: all 0.15s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 0 8px rgba(0, 245, 255, 0.6);
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(0, 245, 255, 0.3);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-origin: center;
-        }
-
-        .cursor.hover {
-            width: 8px;
-            height: 8px;
-            background: var(--neon-orange);
-            box-shadow: 0 0 12px rgba(255, 69, 0, 0.8);
-        }
-
-        .cursor-follower.hover {
-            width: 60px;
-            height: 60px;
-            border-color: rgba(255, 69, 0, 0.5);
-            background: rgba(255, 69, 0, 0.05);
-            backdrop-filter: blur(2px);
-        }
-
-        .cursor-follower.click {
-            transform: scale(0.8);
-        }
-
-        /* Hide default cursor */
-        * {
-            cursor: none !important;
-        }
-
-        /* Mars atmosphere particles */
-        .mars-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--mars-primary);
-            opacity: 0.3;
-            animation: drift 20s linear infinite;
-        }
-
-        @keyframes drift {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100px) translateX(200px);
-                opacity: 0;
-            }
-        }
-
-        /* Neural network background */
-        .neural-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .neural-line {
-            position: absolute;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            opacity: 0.1;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.1; transform: scaleX(1); }
-            50% { opacity: 0.3; transform: scaleX(1.5); }
-        }
-
-        /* Main container */
-        .container {
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            backdrop-filter: blur(20px) saturate(180%);
-            background: rgba(11, 12, 16, 0.8);
-            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 20px var(--neon-cyan);
-            animation: logoGlitch 6s infinite;
-        }
-
-        .logo-subtitle {
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-family: 'JetBrains Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        @keyframes logoGlitch {
-            0%, 94%, 100% { 
-                transform: translate(0);
-                filter: hue-rotate(0deg);
-            }
-            1% { 
-                transform: translate(-2px, 2px);
-                filter: hue-rotate(90deg);
-            }
-            3% { 
-                transform: translate(2px, -2px);
-                filter: hue-rotate(180deg);
-            }
-            5% { 
-                transform: translate(-1px, 0);
-                filter: hue-rotate(270deg);
-            }
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .nav-item {
-            position: relative;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .nav-item:hover {
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
-        }
-
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-orange));
-            transition: width 0.3s ease;
-        }
-
-        .nav-item:hover::after {
-            width: 100%;
-        }
-
-        /* Hero section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: radial-gradient(ellipse at center, rgba(205, 92, 92, 0.1) 0%, var(--deep-space) 70%);
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 1200px;
-            padding: 0 40px;
-            position: relative;
-            z-index: 3;
-        }
-
-        .hero-subtitle {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--neon-orange);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 8rem);
-            font-weight: 800;
-            line-height: 0.9;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 25%, var(--mars-primary) 50%, var(--neon-orange) 75%, #ffffff 100%);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientFlow 8s ease-in-out infinite, titleGlitch 10s infinite;
-            position: relative;
-        }
-
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes titleGlitch {
-            0%, 96%, 100% { 
-                transform: translate(0) skew(0deg);
-                filter: hue-rotate(0deg);
-            }
-            1% { 
-                transform: translate(-3px, 3px) skew(1deg);
-                filter: hue-rotate(90deg);
-            }
-            2% { 
-                transform: translate(3px, -3px) skew(-1deg);
-                filter: hue-rotate(180deg);
-            }
-            3% { 
-                transform: translate(-2px, 0) skew(0.5deg);
-                filter: hue-rotate(270deg);
-            }
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 50px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .cta-primary, .cta-secondary {
-            padding: 16px 40px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: none;
-        }
-
-        .cta-primary:hover, .cta-secondary:hover,
-        .nav-item:hover, .sector-card:hover,
-        .logo:hover {
-            animation: elementGlitch 0.3s ease-in-out;
-        }
-
-        @keyframes elementGlitch {
-            0% { 
-                transform: translate(0) skew(0deg);
-                filter: hue-rotate(0deg);
-            }
-            20% { 
-                transform: translate(-2px, 1px) skew(0.5deg);
-                filter: hue-rotate(90deg);
-                text-shadow: 2px 0 0 #ff0080, -2px 0 0 #00f5ff;
-            }
-            40% { 
-                transform: translate(2px, -1px) skew(-0.5deg);
-                filter: hue-rotate(180deg);
-                text-shadow: -2px 0 0 #00ff41, 2px 0 0 #ff4500;
-            }
-            60% { 
-                transform: translate(-1px, 2px) skew(0.3deg);
-                filter: hue-rotate(270deg);
-                text-shadow: 1px 0 0 #ff0080, -1px 0 0 #00f5ff;
-            }
-            80% { 
-                transform: translate(1px, -2px) skew(-0.3deg);
-                filter: hue-rotate(45deg);
-                text-shadow: -1px 0 0 #00ff41, 1px 0 0 #ff4500;
-            }
-            100% { 
-                transform: translate(0) skew(0deg);
-                filter: hue-rotate(0deg);
-                text-shadow: none;
-            }
-        }
-
-        .cta-primary {
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-orange));
-            color: var(--deep-space);
-            clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
-        }
-
-        .cta-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.3);
-            filter: brightness(1.2);
-        }
-
-        .cta-secondary {
-            background: transparent;
-            color: var(--neon-cyan);
-            border: 2px solid var(--neon-cyan);
-            clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
-        }
-
-        .cta-secondary:hover {
-            background: var(--neon-cyan);
-            color: var(--deep-space);
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
-        }
-
-        /* Floating tech elements */
-        .tech-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .tech-element {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border: 1px solid rgba(0, 245, 255, 0.2);
-            background: rgba(0, 245, 255, 0.05);
-            clip-path: polygon(20px 0, 100% 0, 80px 100%, 0 100%);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .tech-element:nth-child(2) {
-            animation-delay: -2s;
-            width: 80px;
-            height: 80px;
-        }
-
-        .tech-element:nth-child(3) {
-            animation-delay: -4s;
-            width: 120px;
-            height: 120px;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-                opacity: 0.6;
-            }
-        }
-
-        /* Mission sectors */
-        .sectors {
-            padding: 150px 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .sectors-header {
-            text-align: center;
-            margin-bottom: 100px;
-        }
-
-        .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--neon-orange);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, var(--neon-cyan), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .sectors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-top: 80px;
-        }
-
-        .sector-card {
-            background: var(--surface-1);
-            backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(0, 245, 255, 0.1);
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            clip-path: polygon(30px 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
-        }
-
-        .sector-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-orange), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .sector-card:hover::before {
-            left: 100%;
-        }
-
-        .sector-card:hover {
-            transform: translateY(-10px);
-            background: var(--surface-2);
-            border-color: rgba(0, 245, 255, 0.3);
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.3),
-                0 0 100px rgba(0, 245, 255, 0.1);
-        }
-
-        .sector-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 25px;
-        }
-
-        .sector-code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--neon-orange);
-            background: rgba(255, 69, 0, 0.1);
-            padding: 6px 12px;
-            border: 1px solid rgba(255, 69, 0, 0.3);
-            clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .sector-status {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--tech-green);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .sector-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .sector-description {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-        }
-
-        .sector-metrics {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .metric {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .metric-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--neon-cyan);
-        }
-
-        .metric-label {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Philosophy section */
-        .philosophy {
-            padding: 120px 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .philosophy-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .philosophy-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .philosophy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .philosophy-card {
-            background: var(--surface-1);
-            backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(0, 245, 255, 0.1);
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
-        }
-
-        .philosophy-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-orange), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .philosophy-card:hover::before {
-            left: 100%;
-        }
-
-        .philosophy-card:hover {
-            transform: translateY(-8px);
-            background: var(--surface-2);
-            border-color: rgba(0, 245, 255, 0.2);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.2),
-                0 0 80px rgba(0, 245, 255, 0.08);
-        }
-
-        .philosophy-icon {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--neon-orange);
-            background: rgba(255, 69, 0, 0.1);
-            padding: 8px 16px;
-            border: 1px solid rgba(255, 69, 0, 0.3);
-            clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 25px;
-        }
-
-        .philosophy-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .philosophy-description {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-        @media (max-width: 768px) {
-            .header-content {
-                padding: 20px 20px;
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .nav-menu {
-                gap: 20px;
-            }
-
-            .hero-content {
-                padding: 0 20px;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .sectors {
-                padding: 100px 20px;
-            }
-
-            .sectors-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .sector-card {
-                padding: 30px;
-            }
-        }
-
-        /* Glitch overlay */
-        .glitch-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255, 0, 128, 0.03) 2px,
-                    rgba(255, 0, 128, 0.03) 4px
-                ),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0, 245, 255, 0.02) 2px,
-                    rgba(0, 245, 255, 0.02) 4px
-                );
-            pointer-events: none;
-            z-index: 999;
-            animation: scanlines 0.1s linear infinite;
-        }
-
-        @keyframes scanlines {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(4px); }
-        }
-    </style>
+        <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
     <div class="cursor"></div>
@@ -771,13 +17,29 @@
             <div class="header-content">
                 <div class="logo-section">
                     <div class="logo">VMV</div>
-                    <div class="logo-subtitle">Neural Network</div>
+                    <div class="logo-subtitle">Valles Marineris Ventures</div>
                 </div>
                 <nav class="nav-menu">
                     <a href="#philosophy" class="nav-item">Philosophy</a>
                     <a href="#sectors" class="nav-item">Sectors</a>
                     <a href="#portfolio" class="nav-item">Portfolio</a>
                     <a href="#contact" class="nav-item">Contact</a>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
                 </nav>
             </div>
         </header>
@@ -888,216 +150,277 @@
                 </div>
             </div>
         </section>
+
+        <section class="portfolio" id="portfolio">
+            <div class="portfolio-header">
+                <div class="section-label">Investment Portfolio</div>
+                <h2 class="section-title">Strategic Partners</h2>
+                <p class="section-description">
+                    We partner with market-leading companies that are transforming their industries through innovation, 
+                    technology, and mission-driven solutions. Our portfolio represents our commitment to backing 
+                    companies that drive positive change across critical sectors.
+                </p>
+            </div>
+
+            <div class="portfolio-showcase">
+                <div class="portfolio-track">
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/athenahealth.png" alt="Athenahealth" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Healthcare Technology</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/cambium.png" alt="Cambium Learning Group" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Education Technology</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/guidehouse-logo-print.svg" alt="Guidehouse" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Business & Information Services</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/wm_ogimage.jpg" alt="Wood Mackenzie" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Energy & Sustainability Analytics</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/Peraton_Logo.jpg" alt="Peraton" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>National Security & Government IT</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/logo-cotiviti.png" alt="Cotiviti" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Healthcare Analytics & Performance</p>
+                        </div>
+                    </div>
+
+                    <!-- Duplicate items for seamless loop -->
+<div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/athenahealth.png" alt="Athenahealth" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Healthcare Technology</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/cambium.png" alt="Cambium Learning Group" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Education Technology</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/guidehouse-logo-print.svg" alt="Guidehouse" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Business & Information Services</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/wm_ogimage.jpg" alt="Wood Mackenzie" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Energy & Sustainability Analytics</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/Peraton_Logo.jpg" alt="Peraton" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>National Security & Government IT</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo">
+                            <img src="src/imgs/logo-cotiviti.png" alt="Cotiviti" loading="lazy">
+                        </div>
+                        <div class="portfolio-info">
+                            <p>Healthcare Analytics & Performance</p>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="contact-header">
+                <div class="section-label">Strategic Partnership</div>
+                <h2 class="section-title">Contact & Collaboration</h2>
+                <p class="section-description">
+                    Ready to explore strategic partnerships? We're interested in connecting with innovative companies, 
+                    strategic investors, and mission-driven organizations that share our vision for resilient, 
+                    technology-enabled solutions.
+                </p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">INVESTMENT</div>
+                        <h3 class="contact-title">Investment Inquiries</h3>
+                        <p class="contact-description">
+                            For companies seeking strategic investment and partnership opportunities. 
+                            We focus on Series A through growth-stage companies with proven market traction.
+                        </p>
+                        <div class="contact-method">
+                            <span class="method-label">Email:</span>
+                            <a href="mailto:investment@vallesmventures.com" class="contact-link">investment@valmalventures.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">PARTNERSHIP</div>
+                        <h3 class="contact-title">Strategic Partnerships</h3>
+                        <p class="contact-description">
+                            For organizations interested in co-investment opportunities, 
+                            strategic alliances, or collaborative ventures in our focus sectors.
+                        </p>
+                        <div class="contact-method">
+                            <span class="method-label">Email:</span>
+                            <a href="mailto:partnerships@vallesmventures.com" class="contact-link">partnerships@valmalventures.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">NETWORK</div>
+                        <h3 class="contact-title">Network Access</h3>
+                        <p class="contact-description">
+                            For entrepreneurs, executives, and industry leaders interested in 
+                            joining our network of strategic advisors and domain experts.
+                        </p>
+                        <div class="contact-method">
+                            <span class="method-label">Email:</span>
+                            <a href="mailto:network@vallesmventures.com" class="contact-link">network@valmalventures.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <div class="form-header">
+                        <h3>Direct Message</h3>
+                        <p>Send us a message to start a conversation about potential collaboration.</p>
+                    </div>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="organization">Organization</label>
+                            <input type="text" id="organization" name="organization">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Interest Area</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select an area</option>
+                                <option value="aerospace">Aerospace & National Security</option>
+                                <option value="healthcare">Healthcare Technology</option>
+                                <option value="education">Education Platforms</option>
+                                <option value="infrastructure">Infrastructure & Sustainability</option>
+                                <option value="partnership">Strategic Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us about your organization and how we might collaborate..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <script>
-        // Professional cursor system
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.createElement('div');
-        cursorFollower.className = 'cursor-follower';
-        document.body.appendChild(cursorFollower);
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="logo">VMV</div>
+                    <div class="logo-subtitle">Valles Marineris Ventures</div>
+                </div>
+                <p class="footer-description">
+                    Investing in the future of mission-critical technology and resilient infrastructure. 
+                    Building tomorrow's solutions today.
+                </p>
+            </div>
 
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
-        let isHovering = false;
+            <div class="footer-section">
+                <h4 class="footer-title">Investment Sectors</h4>
+                <ul class="footer-links">
+                    <li><a href="#sectors">Aerospace & Defense</a></li>
+                    <li><a href="#sectors">Healthcare Technology</a></li>
+                    <li><a href="#sectors">Education Platforms</a></li>
+                    <li><a href="#sectors">Infrastructure</a></li>
+                </ul>
+            </div>
 
-        // Update mouse position
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // Update cursor position immediately
-            cursor.style.left = mouseX - 6 + 'px';
-            cursor.style.top = mouseY - 6 + 'px';
-        });
+            <div class="footer-section">
+                <h4 class="footer-title">Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#philosophy">Investment Philosophy</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#network">Network</a></li>
+                </ul>
+            </div>
 
-        // Smooth follower animation
-        function animateFollower() {
-            const speed = 0.15;
-            
-            followerX += (mouseX - followerX) * speed;
-            followerY += (mouseY - followerY) * speed;
-            
-            cursorFollower.style.left = followerX - (isHovering ? 30 : 20) + 'px';
-            cursorFollower.style.top = followerY - (isHovering ? 30 : 20) + 'px';
-            
-            requestAnimationFrame(animateFollower);
-        }
-        animateFollower();
+            <div class="footer-section">
+                <h4 class="footer-title">Connect</h4>
+                <div class="social-links">
+                    <a href="mailto:info@vallesmventures.com" class="social-link" aria-label="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M0 3v18h24V3H0zm21.518 2L12 12.713 2.482 5h19.036zM2 19V7.183l10 8.104 10-8.104V19H2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-        // Hover states for interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .sector-card, .nav-item, .cta-primary, .cta-secondary, .logo');
-        
-        interactiveElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                isHovering = true;
-                cursor.classList.add('hover');
-                cursorFollower.classList.add('hover');
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                isHovering = false;
-                cursor.classList.remove('hover');
-                cursorFollower.classList.remove('hover');
-            });
-        });
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Valles Marineris Ventures. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-        // Click animation
-        document.addEventListener('mousedown', () => {
-            cursorFollower.classList.add('click');
-        });
-
-        document.addEventListener('mouseup', () => {
-            cursorFollower.classList.remove('click');
-        });
-
-        // Mars particle system
-        function createParticles() {
-            const container = document.querySelector('.mars-particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                container.appendChild(particle);
-            }
-        }
-
-        // Neural network background
-        function createNeuralNetwork() {
-            const container = document.querySelector('.neural-bg');
-            const lineCount = 20;
-            
-            for (let i = 0; i < lineCount; i++) {
-                const line = document.createElement('div');
-                line.className = 'neural-line';
-                line.style.left = Math.random() * 100 + '%';
-                line.style.top = Math.random() * 100 + '%';
-                line.style.width = (50 + Math.random() * 200) + 'px';
-                line.style.transform = `rotate(${Math.random() * 360}deg)`;
-                line.style.animationDelay = Math.random() * 4 + 's';
-                container.appendChild(line);
-            }
-        }
-
-        // Advanced glitch effects - now only on hover
-        function initHoverGlitchEffects() {
-            const glitchElements = document.querySelectorAll('.hero-title, .logo, .nav-item, .cta-primary, .cta-secondary, .sector-card');
-            
-            glitchElements.forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    // Trigger glitch animation via CSS class
-                    element.style.animation = 'elementGlitch 0.3s ease-in-out';
-                });
-                
-                element.addEventListener('mouseleave', () => {
-                    // Remove glitch animation
-                    element.style.animation = '';
-                    element.style.textShadow = '';
-                    element.style.filter = '';
-                    element.style.transform = '';
-                });
-                
-                // Clean up after animation completes
-                element.addEventListener('animationend', () => {
-                    element.style.textShadow = '';
-                    element.style.filter = '';
-                    element.style.transform = '';
-                });
-            });
-        }
-
-        // Parallax scrolling
-        function handleParallax() {
-            const scrolled = window.pageYOffset;
-            const techElements = document.querySelectorAll('.tech-element');
-            
-            techElements.forEach((element, index) => {
-                const rate = (index + 1) * 0.1;
-                element.style.transform = `translateY(${scrolled * rate}px) rotate(${scrolled * 0.05}deg)`;
-            });
-        }
-
-        // Smooth scroll navigation
-        function initSmoothScroll() {
-            document.querySelectorAll('.nav-item, .cta-primary, .cta-secondary').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href && href.startsWith('#')) {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
-                    }
-                });
-            });
-        }
-
-        // Sector card interactions
-        function initSectorInteractions() {
-            const cards = document.querySelectorAll('.sector-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.filter = 'brightness(1.1) saturate(1.2)';
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.filter = 'none';
-                });
-            });
-        }
-
-        // Performance-optimized scroll handler
-        let ticking = false;
-        function updateParallax() {
-            handleParallax();
-            ticking = false;
-        }
-
-        function requestParallaxUpdate() {
-            if (!ticking) {
-                requestAnimationFrame(updateParallax);
-                ticking = true;
-            }
-        }
-
-        // Initialize all systems
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            createNeuralNetwork();
-            initHoverGlitchEffects();
-            initSmoothScroll();
-            initSectorInteractions();
-        });
-
-        // Event listeners
-        window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
-
-        // Terminal-style loading effect
-        function initTerminalEffect() {
-            const heroTitle = document.querySelector('.hero-title');
-            const originalText = heroTitle.textContent;
-            heroTitle.textContent = '';
-            
-            let i = 0;
-            const typeInterval = setInterval(() => {
-                if (i < originalText.length) {
-                    heroTitle.textContent += originalText[i];
-                    i++;
-                } else {
-                    clearInterval(typeInterval);
-                }
-            }, 100);
-        }
-
-    </script>
+    <script src="src/script.js"></script>
 </body>
 </html>
