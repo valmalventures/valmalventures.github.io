@@ -608,7 +608,92 @@
             letter-spacing: 1px;
         }
 
-        /* Responsive design */
+        /* Philosophy section */
+        .philosophy {
+            padding: 120px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .philosophy-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .philosophy-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .philosophy-card {
+            background: var(--surface-1);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(0, 245, 255, 0.1);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+        }
+
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-orange), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .philosophy-card:hover::before {
+            left: 100%;
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-8px);
+            background: var(--surface-2);
+            border-color: rgba(0, 245, 255, 0.2);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.2),
+                0 0 80px rgba(0, 245, 255, 0.08);
+        }
+
+        .philosophy-icon {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--neon-orange);
+            background: rgba(255, 69, 0, 0.1);
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 69, 0, 0.3);
+            clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .philosophy-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .philosophy-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
         @media (max-width: 768px) {
             .header-content {
                 padding: 20px 20px;
@@ -689,9 +774,9 @@
                     <div class="logo-subtitle">Neural Network</div>
                 </div>
                 <nav class="nav-menu">
+                    <a href="#philosophy" class="nav-item">Philosophy</a>
                     <a href="#sectors" class="nav-item">Sectors</a>
                     <a href="#portfolio" class="nav-item">Portfolio</a>
-                    <a href="#neural" class="nav-item">Neural</a>
                     <a href="#contact" class="nav-item">Contact</a>
                 </nav>
             </div>
@@ -708,13 +793,50 @@
                 <div class="hero-subtitle">Quantum Investment Protocol</div>
                 <h1 class="hero-title">VALLES<br>MARINERIS<br>VENTURES</h1>
                 <p class="hero-description">
-                    Advanced capital deployment across parallel dimensions of technological evolution. 
-                    We fund companies that don't just build the future—they architect alternate realities 
-                    where humanity transcends planetary boundaries.
+                    We invest in market-leading companies that provide mission-critical software and technology-enabled solutions. Our focus is on businesses operating at the intersection of the public and private sectors—a resilient domain where innovation is essential to solving complex global challenges.
                 </p>
                 <div class="hero-actions">
-                    <a href="#sectors" class="cta-primary">Initialize Protocol</a>
-                    <a href="#contact" class="cta-secondary">Neural Link</a>
+                    <a href="#philosophy" class="cta-primary">Investment Protocol</a>
+                    <a href="#contact" class="cta-secondary">Strategic Partnership</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="philosophy" id="philosophy">
+            <div class="philosophy-content">
+                <div class="philosophy-header">
+                    <div class="section-label">Strategic Protocol</div>
+                    <h2 class="section-title">Investment Philosophy</h2>
+                    <p class="section-description">
+                        Our approach is built on deep sector expertise, strategic partnerships, 
+                        and a focus on resilient markets that drive global stability.
+                    </p>
+                </div>
+
+                <div class="philosophy-grid">
+                    <div class="philosophy-card">
+                        <div class="philosophy-icon">RESILIENT</div>
+                        <h3 class="philosophy-title">A Focus on Resilient Markets</h3>
+                        <p class="philosophy-description">
+                            We target industries that are fundamental to societal stability and progress. These sectors are often supported by long-term government priorities, making them resilient to economic cycles and geopolitical shifts.
+                        </p>
+                    </div>
+
+                    <div class="philosophy-card">
+                        <div class="philosophy-icon">SPECIALIZED</div>
+                        <h3 class="philosophy-title">Deep Specialization</h3>
+                        <p class="philosophy-description">
+                            With decades of experience, we leverage deep sector expertise and a proprietary network to identify and cultivate market-leading companies. Our team possesses a unique understanding of the complex regulatory and technological landscapes our companies navigate.
+                        </p>
+                    </div>
+
+                    <div class="philosophy-card">
+                        <div class="philosophy-icon">STRATEGIC</div>
+                        <h3 class="philosophy-title">Strategic Partnership, Not Just Capital</h3>
+                        <p class="philosophy-description">
+                            We are more than investors; we are strategic partners. We take an active, hands-on approach, working with management teams to drive transformational growth, enhance operational performance, and accelerate innovation.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -724,148 +846,45 @@
                 <div class="section-label">Investment Matrix</div>
                 <h2 class="section-title">Mission Sectors</h2>
                 <p class="section-description">
-                    Our neural network identifies and funds breakthrough technologies 
-                    across six critical dimensions of human advancement.
+                    We invest in sectors that are essential to the stability and advancement of society, focusing on technology-driven solutions for defense, healthcare, education, and infrastructure.
                 </p>
             </div>
 
             <div class="sectors-grid">
                 <div class="sector-card">
                     <div class="sector-header">
-                        <div class="sector-code">PROP-07</div>
+                        <div class="sector-code">Aerospace & National Security</div>
                         <div class="sector-status">Active</div>
                     </div>
-                    <h3 class="sector-title">Quantum Propulsion Systems</h3>
-                    <p class="sector-description">
-                        Revolutionary propulsion technologies enabling interstellar travel. 
-                        From antimatter engines to alcubierre drive prototypes and 
-                        quantum vacuum energy manipulation systems.
-                    </p>
-                    <div class="sector-metrics">
-                        <div class="metric">
-                            <div class="metric-value">12</div>
-                            <div class="metric-label">Active Ventures</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">$847M</div>
-                            <div class="metric-label">Deployed</div>
-                        </div>
-                    </div>
+                    <div class="sector-title">Next-Generation Defense & Aerospace</div>
+                    <div class="sector-description">Funding the critical platforms that safeguard national and global interests. We focus on companies developing advanced satellite systems, autonomous technologies, and secure communications for a rapidly evolving world.</div>
                 </div>
 
                 <div class="sector-card">
                     <div class="sector-header">
-                        <div class="sector-code">AUTO-13</div>
-                        <div class="sector-status">Expanding</div>
+                        <div class="sector-code">Healthcare</div>
+                        <div class="sector-status">Active</div>
                     </div>
-                    <h3 class="sector-title">Autonomous Intelligence</h3>
-                    <p class="sector-description">
-                        Self-evolving AI systems designed for extreme environments. 
-                        Neural networks that adapt, learn, and operate independently 
-                        across hostile alien terrains and deep space conditions.
-                    </p>
-                    <div class="sector-metrics">
-                        <div class="metric">
-                            <div class="metric-value">8</div>
-                            <div class="metric-label">Neural Nets</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">$623M</div>
-                            <div class="metric-label">Investment</div>
-                        </div>
-                    </div>
+                    <div class="sector-title">Technology-Enabled Health Solutions</div>
+                    <div class="sector-description">Investing in the convergence of healthcare and technology. We back companies that use data analytics, AI, and software to improve patient outcomes, increase efficiency, and eliminate systemic fraud and waste.</div>
                 </div>
 
                 <div class="sector-card">
                     <div class="sector-header">
-                        <div class="sector-code">ENRG-09</div>
-                        <div class="sector-status">Critical</div>
+                        <div class="sector-code">Education</div>
+                        <div class="sector-status">Active</div>
                     </div>
-                    <h3 class="sector-title">Zero-Point Energy</h3>
-                    <p class="sector-description">
-                        Harvesting energy from quantum vacuum fluctuations and 
-                        developing fusion reactors optimized for Martian atmospheric 
-                        conditions and asteroid belt mining operations.
-                    </p>
-                    <div class="sector-metrics">
-                        <div class="metric">
-                            <div class="metric-value">6</div>
-                            <div class="metric-label">Reactors</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">$1.2B</div>
-                            <div class="metric-label">Capital</div>
-                        </div>
-                    </div>
+                    <div class="sector-title">Transformative Education Platforms</div>
+                    <div class="sector-description">Backing the digital transformation of learning. We partner with companies that provide innovative software and remote-learning resources to educational institutions, empowering the next generation of students and educators.</div>
                 </div>
 
                 <div class="sector-card">
                     <div class="sector-header">
-                        <div class="sector-code">BIO-04</div>
-                        <div class="sector-status">Classified</div>
+                        <div class="sector-code">Sustainability & Infrastructure</div>
+                        <div class="sector-status">Active</div>
                     </div>
-                    <h3 class="sector-title">Xenobiological Enhancement</h3>
-                    <p class="sector-description">
-                        Genetic modification for space adaptation, consciousness 
-                        transfer protocols, and synthetic biology creating 
-                        self-sustaining ecosystems in hostile environments.
-                    </p>
-                    <div class="sector-metrics">
-                        <div class="metric">
-                            <div class="metric-value">4</div>
-                            <div class="metric-label">Labs</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">$394M</div>
-                            <div class="metric-label">Research</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sector-card">
-                    <div class="sector-header">
-                        <div class="sector-code">QCOM-11</div>
-                        <div class="sector-status">Prototype</div>
-                    </div>
-                    <h3 class="sector-title">Quantum Communication</h3>
-                    <p class="sector-description">
-                        Instantaneous data transfer across galactic distances using 
-                        quantum entanglement networks, enabling real-time control 
-                        of interplanetary infrastructure and deep space missions.
-                    </p>
-                    <div class="sector-metrics">
-                        <div class="metric">
-                            <div class="metric-value">3</div>
-                            <div class="metric-label">Networks</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">$156M</div>
-                            <div class="metric-label">Funding</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sector-card">
-                    <div class="sector-header">
-                        <div class="sector-code">RLTY-02</div>
-                        <div class="sector-status">Dimensional</div>
-                    </div>
-                    <h3 class="sector-title">Reality Architecture</h3>
-                    <p class="sector-description">
-                        Multi-dimensional simulation platforms for consciousness 
-                        exploration, alternate timeline modeling, and immersive 
-                        training environments for impossible scenarios.
-                    </p>
-                    <div class="sector-metrics">
-                        <div class="metric">
-                            <div class="metric-value">7</div>
-                            <div class="metric-label">Dimensions</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">$278M</div>
-                            <div class="metric-label">Simulation</div>
-                        </div>
-                    </div>
+                    <div class="sector-title">Intelligent & Sustainable Infrastructure</div>
+                    <div class="sector-description">Architecting the future of our critical infrastructure. We focus on modernizing essential systems through sustainable technology, advanced software, and solutions that enhance the resilience and efficiency of global infrastructure.</div>
                 </div>
             </div>
         </section>
