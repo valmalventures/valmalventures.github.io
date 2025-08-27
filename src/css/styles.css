@@ -949,10 +949,15 @@ header {
 
 .portfolio-info p {
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: #000000; /* Dark mode default: black text */
     text-transform: uppercase;
     letter-spacing: 1px;
     font-family: 'JetBrains Mono', monospace;
+}
+
+/* Light mode override for portfolio info text */
+[data-theme="light"] .portfolio-info p {
+    color: var(--text-secondary);
 }
 
 @keyframes scrollLogos {
