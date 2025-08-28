@@ -1,0 +1,770 @@
+/* Comprehensive Mobile Optimizations */
+
+/* Mobile breakpoint optimizations */
+@media (max-width: 768px) {
+    /* Header mobile optimizations */
+    .header-content {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo-section {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .logo-subtitle {
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+    }
+
+    .nav-menu {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        background: var(--bg-surface);
+        border-radius: 12px;
+        padding: 15px;
+        border: 1px solid var(--border-primary);
+        backdrop-filter: blur(15px);
+    }
+
+    .nav-item {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+        background: var(--bg-surface);
+        border-radius: 6px;
+        border: 1px solid var(--border-primary);
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-item:hover {
+        background: var(--bg-surface-hover);
+        transform: none;
+    }
+
+    /* Hero section mobile optimizations */
+    .hero {
+        min-height: 100vh;
+        padding: 80px 0 40px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .hero-subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        text-shadow: 0 0 8px rgba(255, 69, 0, 0.8);
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+        line-height: 0.95;
+        margin-bottom: 25px;
+        word-spacing: -2px;
+        text-shadow: 0 0 15px rgba(0, 245, 255, 0.6);
+        animation: gradientFlow 20s ease-in-out infinite;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 40px;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .cta-primary, .cta-secondary {
+        width: 100%;
+        padding: 18px 30px;
+        font-size: 0.85rem;
+        text-align: center;
+        justify-content: center;
+        clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+        min-height: 44px;
+        min-width: 44px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-primary::before,
+    .cta-secondary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .cta-primary:active::before,
+    .cta-secondary:active::before {
+        left: 100%;
+    }
+
+    .cta-secondary {
+        border-width: 2px;
+        background: rgba(0, 245, 255, 0.05);
+    }
+
+    /* Tech elements mobile optimization */
+    .tech-elements {
+        display: none; /* Hide on mobile for better performance */
+    }
+
+    /* Sectors mobile optimizations */
+    .sectors {
+        padding: 80px 20px;
+    }
+
+    .sectors-header {
+        margin-bottom: 60px;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .sectors-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 60px;
+        scroll-margin-top: 100px;
+    }
+
+    .sector-card {
+        padding: 25px;
+        clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+        margin: 0 5px;
+        border-radius: 8px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .sector-metrics {
+        gap: 15px;
+    }
+
+    .metric-value {
+        font-size: 1rem;
+    }
+
+    /* Philosophy mobile optimizations */
+    .philosophy {
+        padding: 80px 20px;
+    }
+
+    .philosophy-header {
+        margin-bottom: 60px;
+    }
+
+    .philosophy-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 50px;
+        scroll-margin-top: 100px;
+    }
+
+    .philosophy-card {
+        padding: 25px;
+        clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+        margin: 0 5px;
+        border-radius: 8px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    /* Portfolio mobile optimizations */
+    .portfolio {
+        padding: 80px 20px;
+    }
+    
+    .portfolio-showcase {
+        margin: 50px 0;
+        padding: 25px 0;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    
+    .portfolio-track {
+        animation-duration: 25s;
+    }
+    
+    .portfolio-item {
+        min-width: 140px;
+        margin: 0 15px;
+        padding: 12px;
+        border-radius: 8px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    
+    .portfolio-logo {
+        width: 80px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+    
+    .portfolio-info h3 {
+        font-size: 0.9rem;
+    }
+    
+    .portfolio-info p {
+        font-size: 0.65rem;
+    }
+    
+    .portfolio-stats {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 50px;
+        scroll-margin-top: 100px;
+    }
+    
+    .stat-item {
+        padding: 20px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .stat-number {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    /* Contact mobile optimizations */
+    .contact {
+        padding: 80px 20px;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact-form-container {
+        padding: 25px;
+        clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+    }
+    
+    .contact-card {
+        padding: 25px;
+        clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+        margin: 0 5px;
+        border-radius: 8px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px;
+        font-size: 16px; /* Prevent zoom on iOS */
+        clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        transform: scale(1.02);
+        border-width: 2px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 50px 20px 25px;
+        text-align: center;
+    }
+    
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 20px;
+        gap: 15px;
+    }
+    
+    .footer-bottom-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    /* Mobile-specific performance optimizations */
+    .mars-particles {
+        display: none; /* Hide particles on mobile for better performance */
+    }
+
+    .neural-bg {
+        opacity: 0.2; /* Reduce neural background intensity on mobile */
+        filter: blur(2px);
+    }
+
+    .glitch-overlay {
+        animation: scanlines 1s linear infinite; /* Slower scanlines on mobile */
+        opacity: 0.3;
+    }
+
+    /* Reduce backdrop-filter complexity on mobile */
+    header,
+    .sector-card,
+    .philosophy-card,
+    .portfolio-item,
+    .contact-card,
+    .stat-item,
+    .contact-form-container {
+        backdrop-filter: blur(8px) saturate(110%);
+        -webkit-backdrop-filter: blur(8px) saturate(110%);
+    }
+
+    /* Optimize shadows for mobile */
+    .sector-card:hover,
+    .philosophy-card:hover,
+    .portfolio-item:hover,
+    .contact-card:hover,
+    .stat-item:hover {
+        transform: translateY(-2px) translateZ(0);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 245, 255, 0.05);
+    }
+
+    /* Mobile accessibility improvements */
+    .nav-item:focus,
+    .cta-primary:focus,
+    .cta-secondary:focus,
+    .theme-toggle:focus {
+        outline: 2px solid var(--neon-cyan);
+        outline-offset: 2px;
+    }
+
+    .nav-item:focus-visible,
+    .cta-primary:focus-visible,
+    .cta-secondary:focus-visible,
+    .theme-toggle:focus-visible {
+        outline: 3px solid var(--neon-cyan);
+        outline-offset: 3px;
+        border-radius: 6px;
+    }
+
+    /* Mobile loading states */
+    .cta-primary:active,
+    .cta-secondary:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .header-content {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .logo-subtitle {
+        font-size: 0.55rem;
+    }
+
+    .nav-menu {
+        gap: 10px;
+    }
+
+    .nav-item {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    .hero {
+        padding: 70px 0 30px 0;
+    }
+
+    .hero-content {
+        padding: 0 15px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 14vw, 3.5rem);
+        line-height: 0.9;
+        margin-bottom: 20px;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 35px;
+        padding: 0 5px;
+    }
+
+    .hero-actions {
+        gap: 15px;
+        max-width: 280px;
+    }
+
+    .cta-primary, .cta-secondary {
+        padding: 16px 25px;
+        font-size: 0.8rem;
+        clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    }
+
+    .sectors {
+        padding: 60px 15px;
+    }
+
+    .sectors-header {
+        margin-bottom: 50px;
+    }
+
+    .section-title {
+        font-size: clamp(1.8rem, 10vw, 2.5rem);
+    }
+
+    .sector-card {
+        padding: 20px;
+        clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    }
+
+    .philosophy {
+        padding: 60px 15px;
+    }
+
+    .philosophy-card {
+        padding: 20px;
+        clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    }
+
+    .portfolio {
+        padding: 60px 15px;
+    }
+    
+    .portfolio-showcase {
+        margin: 40px 0;
+        padding: 20px 0;
+    }
+    
+    .portfolio-item {
+        min-width: 120px;
+        margin: 0 10px;
+        padding: 10px;
+    }
+    
+    .portfolio-logo {
+        width: 70px;
+        height: 45px;
+    }
+    
+    .portfolio-info h3 {
+        font-size: 0.8rem;
+    }
+    
+    .portfolio-info p {
+        font-size: 0.6rem;
+    }
+    
+    .portfolio-stats {
+        gap: 20px;
+        margin-top: 40px;
+    }
+    
+    .stat-item {
+        padding: 18px;
+    }
+
+    .contact {
+        padding: 60px 15px;
+    }
+    
+    .contact-form-container {
+        padding: 20px;
+        clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    }
+    
+    .contact-card {
+        padding: 20px;
+        clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px;
+        font-size: 16px;
+        clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+    }
+    
+    .footer-content {
+        padding: 40px 15px 20px;
+        gap: 25px;
+    }
+    
+    .footer-bottom-content {
+        padding: 0 15px;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: clamp(1.8rem, 16vw, 3rem);
+        line-height: 0.85;
+    }
+
+    .hero-description {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .hero-actions {
+        max-width: 260px;
+    }
+
+    .cta-primary, .cta-secondary {
+        padding: 14px 20px;
+        font-size: 0.75rem;
+    }
+
+    .sector-card,
+    .philosophy-card,
+    .contact-card {
+        padding: 18px;
+        margin: 0 3px;
+    }
+
+    .portfolio-item {
+        min-width: 110px;
+        margin: 0 8px;
+        padding: 8px;
+    }
+
+    .portfolio-logo {
+        width: 60px;
+        height: 40px;
+    }
+}
+
+/* Mobile landscape specific optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        min-height: 100vh;
+        padding: 60px 0 30px 0;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+        margin-bottom: 20px;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+        max-width: 600px;
+    }
+
+    .hero-actions {
+        flex-direction: row;
+        gap: 20px;
+        max-width: none;
+    }
+
+    .cta-primary, .cta-secondary {
+        width: auto;
+        min-width: 180px;
+    }
+}
+
+/* Mobile landscape with low height */
+@media (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+    .hero {
+        padding: 40px 0 20px 0;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 6vw, 3rem);
+        margin-bottom: 15px;
+    }
+
+    .hero-description {
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+        max-width: 500px;
+    }
+
+    .hero-actions {
+        gap: 15px;
+    }
+
+    .cta-primary, .cta-secondary {
+        padding: 12px 20px;
+        font-size: 0.8rem;
+    }
+
+    .sectors,
+    .philosophy,
+    .portfolio,
+    .contact {
+        padding: 60px 20px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .cursor,
+    .cursor-follower {
+        display: none;
+    }
+    
+    /* Re-enable default cursor on touch devices */
+    * {
+        cursor: auto !important;
+    }
+
+    /* Optimize touch targets */
+    .nav-item,
+    .cta-primary,
+    .cta-secondary,
+    .theme-toggle {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .sector-card,
+    .philosophy-card,
+    .portfolio-item,
+    .contact-card,
+    .stat-item {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Reduce hover effects on touch devices */
+    .sector-card:hover,
+    .philosophy-card:hover,
+    .portfolio-item:hover,
+    .contact-card:hover,
+    .stat-item:hover {
+        transform: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Add active states for touch */
+    .sector-card:active,
+    .philosophy-card:active,
+    .portfolio-item:active,
+    .contact-card:active,
+    .stat-item:active {
+        transform: scale(0.98);
+        background: var(--bg-surface-hover);
+    }
+
+    .cta-primary:active,
+    .cta-secondary:active {
+        transform: scale(0.96);
+        background: var(--bg-surface-hover);
+    }
+
+    .nav-item:active {
+        transform: scale(0.95);
+        background: var(--bg-surface-hover);
+    }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .header-content {
+        padding: 20px 30px;
+    }
+
+    .hero-content {
+        padding: 0 30px;
+    }
+
+    .hero-title {
+        font-size: clamp(3.5rem, 10vw, 6rem);
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
+        max-width: 700px;
+    }
+
+    .sectors {
+        padding: 120px 30px;
+    }
+
+    .sectors-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+    }
+
+    .philosophy {
+        padding: 100px 30px;
+    }
+
+    .portfolio {
+        padding: 100px 30px;
+    }
+    
+    .portfolio-track {
+        animation-duration: 50s;
+    }
+    
+    .portfolio-item {
+        min-width: 180px;
+        margin: 0 25px;
+    }
+    
+    .contact {
+        padding: 100px 30px;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        padding: 60px 30px 30px;
+    }
+}

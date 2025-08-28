@@ -1,4 +1,4 @@
-// Professional cursor system with improved rendering
+// Professional cursor system with improved rendering and performance
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.createElement('div');
 cursorFollower.className = 'cursor-follower';
@@ -10,6 +10,7 @@ let isHovering = false;
 let isVisible = true;
 let animationFrameId = null;
 let isReducedMotion = false;
+let lastTime = 0;
 
 // Check for reduced motion preference
 if (window.matchMedia) {
@@ -42,33 +43,46 @@ const updateMousePosition = throttle((e) => {
     
     // Update cursor position immediately for responsive feel
     if (cursor && isVisible) {
-        cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+        cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px) translateZ(0)`;
     }
 }, isReducedMotion ? 16 : 8); // Respect user's motion preferences
 
 document.addEventListener('mousemove', updateMousePosition, { passive: true });
 
 // Enhanced follower animation with improved performance
-function animateFollower() {
+function animateFollower(currentTime) {
     if (!isVisible) {
         animationFrameId = requestAnimationFrame(animateFollower);
         return;
     }
     
+    // Limit frame rate for better performance
+    if (currentTime - lastTime < (isReducedMotion ? 32 : 16)) {
+        animationFrameId = requestAnimationFrame(animateFollower);
+        return;
+    }
+    lastTime = currentTime;
+    
     // Use easing for smoother movement
-    const ease = isReducedMotion ? 0.15 : 0.06; // Slower for reduced motion
+    const ease = isReducedMotion ? 0.12 : 0.08; // Reduced for better performance
     
     // Calculate distance for adaptive speed
     const dx = mouseX - followerX;
     const dy = mouseY - followerY;
     const distance = Math.sqrt(dx * dx + dy * dy);
     
+    // Skip update if movement is very small (performance optimization)
+    if (distance < 0.5) {
+        animationFrameId = requestAnimationFrame(animateFollower);
+        return;
+    }
+    
     // Adaptive speed based on distance - slower for closer distances
     let speed = ease;
-    if (distance > 150) {
-        speed = ease * (isReducedMotion ? 1.2 : 1.8); // Faster for far distances
-    } else if (distance < 50) {
-        speed = ease * (isReducedMotion ? 0.8 : 0.5); // Slower for close distances
+    if (distance > 100) {
+        speed = ease * (isReducedMotion ? 1.1 : 1.3); // Reduced multiplier
+    } else if (distance < 30) {
+        speed = ease * (isReducedMotion ? 0.6 : 0.4); // Slower for close distances
     }
     
     followerX += dx * speed;
@@ -78,7 +92,7 @@ function animateFollower() {
         const size = isHovering ? 60 : 40;
         const offset = size / 2;
         
-        cursorFollower.style.transform = `translate(${followerX - offset}px, ${followerY - offset}px)`;
+        cursorFollower.style.transform = `translate(${followerX - offset}px, ${followerY - offset}px) translateZ(0)`;
     }
     
     animationFrameId = requestAnimationFrame(animateFollower);
@@ -118,7 +132,7 @@ document.addEventListener('mouseenter', () => {
     if (cursorFollower) cursorFollower.style.opacity = '1';
 });
 
-// Enhanced hover states for interactive elements
+// Enhanced hover states for interactive elements with performance optimizations
 const interactiveElements = document.querySelectorAll('a, button, .sector-card, .nav-item, .cta-primary, .cta-secondary, .logo, .contact-card, .contact-link, .social-link, .footer-links a, .submit-btn');
 
 interactiveElements.forEach(element => {
@@ -126,7 +140,7 @@ interactiveElements.forEach(element => {
         isHovering = true;
         if (cursor) {
             cursor.classList.add('hover');
-            cursor.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px) scale(0.8)`;
+            cursor.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px) scale(0.8) translateZ(0)`;
         }
         if (cursorFollower) {
             cursorFollower.classList.add('hover');
@@ -137,7 +151,7 @@ interactiveElements.forEach(element => {
         isHovering = false;
         if (cursor) {
             cursor.classList.remove('hover');
-            cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px) scale(1)`;
+            cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px) scale(1) translateZ(0)`;
         }
         if (cursorFollower) {
             cursorFollower.classList.remove('hover');
@@ -154,47 +168,62 @@ document.addEventListener('mouseup', () => {
     if (cursorFollower) cursorFollower.classList.remove('click');
 });
 
-// Mars particle system
+// Mars particle system with reduced count for better performance
 function createParticles() {
     const container = document.querySelector('.mars-particles');
-    const particleCount = 50;
+    const particleCount = 25; // Reduced from 50 for better performance
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+        particle.style.animationDelay = Math.random() * 25 + 's';
+        particle.style.animationDuration = (20 + Math.random() * 15) + 's';
         container.appendChild(particle);
     }
 }
 
-// Neural network background
+// Neural network background with reduced complexity
 function createNeuralNetwork() {
     const container = document.querySelector('.neural-bg');
-    const lineCount = 20;
+    const lineCount = 12; // Reduced from 20 for better performance
     
     for (let i = 0; i < lineCount; i++) {
         const line = document.createElement('div');
         line.className = 'neural-line';
         line.style.left = Math.random() * 100 + '%';
         line.style.top = Math.random() * 100 + '%';
-        line.style.width = (50 + Math.random() * 200) + 'px';
-        line.style.transform = `rotate(${Math.random() * 360}deg)`;
-        line.style.animationDelay = Math.random() * 4 + 's';
+        line.style.width = (40 + Math.random() * 150) + 'px'; // Reduced width range
+        line.style.transform = `rotate(${Math.random() * 360}deg) translateZ(0)`;
+        line.style.animationDelay = Math.random() * 6 + 's';
         container.appendChild(line);
     }
 }
 
-// Advanced glitch effects - now only on hover
+// Advanced glitch effects - now optimized for performance
 function initHoverGlitchEffects() {
     const glitchElements = document.querySelectorAll('.hero-title, .logo, .nav-item, .cta-primary, .cta-secondary, .sector-card');
     
+    // Debounce function to limit glitch effect frequency
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
     glitchElements.forEach(element => {
-        element.addEventListener('mouseenter', () => {
+        const debouncedGlitch = debounce(() => {
             // Trigger glitch animation via CSS class
-            element.style.animation = 'elementGlitch 0.3s ease-in-out';
-        });
+            element.style.animation = 'elementGlitch 0.2s ease-in-out'; // Reduced duration
+        }, 100); // 100ms debounce
+        
+        element.addEventListener('mouseenter', debouncedGlitch);
         
         element.addEventListener('mouseleave', () => {
             // Remove glitch animation
@@ -243,18 +272,20 @@ function initSmoothScroll() {
     });
 }
 
-// Sector card interactions
+// Sector card interactions with performance optimizations
 function initSectorInteractions() {
     const cards = document.querySelectorAll('.sector-card');
     
     cards.forEach(card => {
+        // Use passive event listeners for better performance
         card.addEventListener('mouseenter', () => {
-            card.style.filter = 'brightness(1.1) saturate(1.2)';
-        });
+            // Simplified hover effect
+            card.style.filter = 'brightness(1.05) saturate(1.1)';
+        }, { passive: true });
         
         card.addEventListener('mouseleave', () => {
             card.style.filter = 'none';
-        });
+        }, { passive: true });
     });
 }
 
