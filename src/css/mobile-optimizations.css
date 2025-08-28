@@ -4,62 +4,110 @@
 @media (max-width: 768px) {
     /* Header mobile optimizations */
     .header-content {
-        padding: 15px 20px;
-        flex-direction: column;
+        padding: 12px 20px;
+        flex-direction: row;
         gap: 15px;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .logo-section {
-        flex-direction: column;
+        flex-direction: row;
         gap: 8px;
-        text-align: center;
+        align-items: center;
     }
 
     .logo {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .logo-subtitle {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
         letter-spacing: 0.5px;
     }
 
     .nav-menu {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-        background: var(--bg-surface);
-        border-radius: 12px;
-        padding: 15px;
-        border: 1px solid var(--border-primary);
-        backdrop-filter: blur(15px);
+        gap: 8px;
+        flex-direction: row;
+        justify-content: flex-end;
+        background: transparent;
+        border-radius: 0;
+        padding: 0;
+        border: none;
+        backdrop-filter: none;
     }
 
     .nav-item {
-        font-size: 0.8rem;
-        padding: 8px 12px;
+        font-size: 0;
+        padding: 8px;
         background: var(--bg-surface);
-        border-radius: 6px;
+        border-radius: 8px;
         border: 1px solid var(--border-primary);
-        min-height: 44px;
-        min-width: 44px;
+        min-height: 40px;
+        min-width: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    /* Navigation icons */
+    .nav-item::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 18px;
+        height: 18px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.8;
+    }
+
+    .nav-item[href="#philosophy"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'/%3E%3C/svg%3E");
+    }
+
+    .nav-item[href="#sectors"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'/%3E%3C/svg%3E");
+    }
+
+    .nav-item[href="#portfolio"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'/%3E%3C/svg%3E");
+    }
+
+    .nav-item[href="#contact"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'/%3E%3C/svg%3E");
     }
 
     .nav-item:hover {
         background: var(--bg-surface-hover);
         transform: none;
+        border-color: var(--neon-cyan);
     }
 
-    /* Hero section mobile optimizations */
+    .nav-item:hover::before {
+        opacity: 1;
+    }
+
+    /* Theme toggle mobile optimization */
+    .theme-toggle {
+        min-height: 40px;
+        min-width: 40px;
+        padding: 8px;
+    }
+
+    /* Hero section mobile optimizations - increased top padding to avoid header overlap */
     .hero {
         min-height: 100vh;
-        padding: 80px 0 40px 0;
+        padding: 120px 0 40px 0; /* Increased top padding from 80px to 120px */
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: 0; /* Ensure no additional margin */
     }
 
     .hero-content {
@@ -383,29 +431,42 @@
 /* Small mobile devices */
 @media (max-width: 480px) {
     .header-content {
-        padding: 12px 15px;
+        padding: 10px 15px;
         gap: 12px;
     }
 
     .logo {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .logo-subtitle {
-        font-size: 0.55rem;
+        font-size: 0.5rem;
     }
 
     .nav-menu {
-        gap: 10px;
+        gap: 6px;
     }
 
     .nav-item {
-        font-size: 0.75rem;
-        padding: 6px 10px;
+        font-size: 0;
+        padding: 6px;
+        min-height: 36px;
+        min-width: 36px;
+    }
+
+    .nav-item::before {
+        width: 16px;
+        height: 16px;
+    }
+
+    .theme-toggle {
+        min-height: 36px;
+        min-width: 36px;
+        padding: 6px;
     }
 
     .hero {
-        padding: 70px 0 30px 0;
+        padding: 110px 0 30px 0; /* Adjusted for smaller header */
     }
 
     .hero-content {
@@ -539,6 +600,40 @@
 
 /* Extra small mobile devices */
 @media (max-width: 360px) {
+    .header-content {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    .logo-subtitle {
+        font-size: 0.45rem;
+    }
+
+    .nav-item {
+        min-height: 32px;
+        min-width: 32px;
+        padding: 4px;
+    }
+
+    .nav-item::before {
+        width: 14px;
+        height: 14px;
+    }
+
+    .theme-toggle {
+        min-height: 32px;
+        min-width: 32px;
+        padding: 4px;
+    }
+
+    .hero {
+        padding: 100px 0 30px 0; /* Further adjusted for very small screens */
+    }
+
     .hero-title {
         font-size: clamp(1.8rem, 16vw, 3rem);
         line-height: 0.85;
@@ -581,7 +676,7 @@
 @media (max-width: 768px) and (orientation: landscape) {
     .hero {
         min-height: 100vh;
-        padding: 60px 0 30px 0;
+        padding: 100px 0 30px 0; /* Adjusted for landscape */
     }
 
     .hero-title {
@@ -610,7 +705,7 @@
 /* Mobile landscape with low height */
 @media (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
     .hero {
-        padding: 40px 0 20px 0;
+        padding: 80px 0 20px 0; /* Further reduced for low height landscape */
     }
 
     .hero-title {
